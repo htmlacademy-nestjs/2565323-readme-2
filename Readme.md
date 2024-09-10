@@ -1,7 +1,7 @@
 # Личный проект «Readme»
 
 * Студент: [Айдар Ялаев](https://up.htmlacademy.ru/nodejs-2-individual/2/user/2565323).
-* Наставник: `Неизвестно`.
+* Наставник: [Константин Ильин](https://htmlacademy.ru/profile/id2374827).
 
 ---
 
