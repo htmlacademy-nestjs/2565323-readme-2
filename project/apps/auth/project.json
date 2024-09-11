@@ -1,7 +1,7 @@
 {
-  "name": "accounts",
+  "name": "auth",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/accounts/src",
+  "sourceRoot": "apps/auth/src",
   "projectType": "application",
   "tags": [],
   "targets": {
@@ -10,15 +10,15 @@
       "defaultConfiguration": "development",
       "dependsOn": ["build"],
       "options": {
-        "buildTarget": "accounts:build",
+        "buildTarget": "auth:build",
         "runBuildTargetDependencies": false
       },
       "configurations": {
         "development": {
-          "buildTarget": "accounts:build:development"
+          "buildTarget": "auth:build:development"
         },
         "production": {
-          "buildTarget": "accounts:build:production"
+          "buildTarget": "auth:build:production"
         }
       }
     }
