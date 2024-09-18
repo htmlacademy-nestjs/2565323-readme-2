@@ -2,9 +2,10 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 import { UsersService } from './users.service';
 import {
-  UserChangePasswordRequest,
-  UserChangePasswordResponse,
-  UserGetInfoResponse, UserRegisterRequest, UserRegisterResponse
+  ChangePasswordDto,
+  ChangePasswordRdo,
+  CreateUserDto,
+  CreateUserRdo,
 } from '@project/shared-dtos';
 import {
   ApiBody,
@@ -13,6 +14,11 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import {
+  INVALID_PASSWORD,
+  USER_ALREADY_EXISTS,
+  USER_NOT_FOUND,
+} from './users.const';
 
 @Controller('users')
 @ApiTags('Users')
@@ -22,18 +28,18 @@ export class UsersController {
   @Post('')
   @ApiOperation({ summary: 'Create user' })
   @ApiBody({
-    type: UserRegisterRequest,
+    type: CreateUserDto,
   })
   @ApiResponse({
     status: 201,
-    description: 'User successfully created',
-    type: UserRegisterResponse,
+    description: 'User created successfully',
+    type: CreateUserRdo,
   })
   @ApiResponse({
     status: 409,
-    description: 'User with this email already exists',
+    description: USER_ALREADY_EXISTS,
   })
-  async create(@Body() dto: UserRegisterRequest) {
+  async create(@Body() dto: CreateUserDto) {
     return this.usersService.create(dto);
   }
 
@@ -41,17 +47,17 @@ export class UsersController {
   @ApiOperation({ summary: 'Get user info' })
   @ApiParam({
     name: 'id',
-    description: 'The unique ID of the user',
+    description: `User's id`,
     example: 'abcd1234',
   })
   @ApiResponse({
     status: 200,
-    description: 'The user information',
-    type: UserGetInfoResponse,
+    description: `User's info`,
+    type: CreateUserRdo,
   })
   @ApiResponse({
     status: 404,
-    description: 'User not found',
+    description: USER_NOT_FOUND,
   })
   async getInfo(@Param('id') id: string) {
     return this.usersService.getInfo(id);
@@ -59,31 +65,31 @@ export class UsersController {
 
   /** TODO добавить JwtAuthGuard - доступно только авторизованным пользователям */
   @Post(':id/password')
-  @ApiOperation({ summary: 'Change user password' })
+  @ApiOperation({ summary: `Change user's password` })
   @ApiParam({
     name: 'id',
-    description: 'The unique ID of the user',
+    description: `User's id`,
     example: 'abcd1234',
   })
   @ApiBody({
-    type: UserChangePasswordRequest,
+    type: ChangePasswordDto,
   })
   @ApiResponse({
     status: 200,
-    description: 'User successfully changed password',
-    type: UserChangePasswordResponse,
+    description: 'User changed password',
+    type: ChangePasswordRdo,
   })
   @ApiResponse({
     status: 401,
-    description: 'Current password is incorrect',
+    description: INVALID_PASSWORD,
   })
   @ApiResponse({
     status: 404,
-    description: 'User not found',
+    description: USER_NOT_FOUND,
   })
   async changePassword(
     @Param('id') id: string,
-    @Body() dto: UserChangePasswordRequest
+    @Body() dto: ChangePasswordDto
   ) {
     return this.usersService.changePassword(id, dto);
   }

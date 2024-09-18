@@ -4,38 +4,44 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { UsersMemoryRepository } from './repositories/users.memory-repository';
-import { UserEntity } from './entities/user.entity';
 import {
-  UserChangePasswordRequest,
-  UserRegisterRequest,
-  UserRegisterResponse,
+  ChangePasswordDto,
+  ChangePasswordRdo,
+  CreateUserDto,
+  CreateUserRdo,
 } from '@project/shared-dtos';
+import {
+  INVALID_PASSWORD,
+  USER_ALREADY_EXISTS,
+  USER_NOT_FOUND,
+} from './users.const';
+import { UserEntity } from './entities/user.entity';
+import { UsersMongoRepository } from './repositories/users.mongo-repository';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly usersMemoryRepository: UsersMemoryRepository) {}
+  constructor(private readonly usersMongoRepository: UsersMongoRepository) {}
 
-  async create(user: UserRegisterRequest): Promise<UserRegisterResponse> {
-    const oldUserEntity = this.usersMemoryRepository.getByEmail(user.email);
+  async create(user: CreateUserDto): Promise<CreateUserRdo> {
+    const oldUserEntity = this.usersMongoRepository.findByEmail(user.email);
     if (oldUserEntity) {
-      throw new ConflictException(
-        `User with email ${user.email} already exists`
-      );
+      throw new ConflictException(USER_ALREADY_EXISTS);
     }
 
-    const { password, ...userWithoutPassword } = user;
-    const userEntity = await new UserEntity(userWithoutPassword).setPassword(
-      password
-    );
-    this.usersMemoryRepository.save(userEntity);
-    return userEntity.getInfo();
+    const { password, ...restUser } = user;
+    const generatedPassword = UserEntity.generatePassword(password);
+    const userEntity = new UserEntity({
+      ...restUser,
+      ...generatedPassword,
+    });
+    await this.usersMongoRepository.save(userEntity);
+    return userEntity.getInfo() as CreateUserRdo;
   }
 
   async getInfo(id: string) {
-    const userEntity = this.usersMemoryRepository.getById(id);
+    const userEntity = await this.usersMongoRepository.findById(id);
     if (!userEntity) {
-      throw new NotFoundException(`User with id ${id} not found`);
+      throw new NotFoundException(USER_NOT_FOUND);
     }
 
     return userEntity.getInfo();
@@ -43,19 +49,19 @@ export class UsersService {
 
   async changePassword(
     id: string,
-    { password, newPassword }: UserChangePasswordRequest
+    { password, newPassword }: ChangePasswordDto
   ) {
-    const userEntity = this.usersMemoryRepository.getById(id);
+    const userEntity = await this.usersMongoRepository.findById(id);
     if (!userEntity) {
-      throw new NotFoundException(`User with id ${id} not found`);
+      throw new NotFoundException(USER_NOT_FOUND);
     }
 
     const isPasswordValid = userEntity.validatePassword(password);
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Current password is incorrect');
+      throw new UnauthorizedException(INVALID_PASSWORD);
     }
 
-    const updatedUserEntity = await userEntity.setPassword(newPassword);
-    return updatedUserEntity.getInfo();
+    const updatedUserEntity = userEntity.updatePassword(newPassword);
+    return updatedUserEntity.getInfo() as ChangePasswordRdo;
   }
 }

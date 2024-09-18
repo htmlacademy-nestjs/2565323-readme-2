@@ -1,41 +1,28 @@
-import { randomUUID } from 'node:crypto';
-import { Entity } from './entity.interface';
+import { Entity, EntityIdType } from './entity.interface';
 import { Repository } from './repository.interface';
 
-export class MemoryRepository<T extends Entity> implements Repository<T> {
-  protected entities: T[] = [];
+export abstract class BaseMemoryRepository<T extends Entity<EntityIdType>> implements Repository<T> {
+  protected entities: Map<T['id'], T> = new Map();
 
-  public getAll(): T[] {
-    return this.entities.map((entity) => ({ ...entity }));
+  public async findById(id: T['id']): Promise<T | null> {
+    return this.entities.get(id) || null;
   }
 
-  public getById(id: string): T | undefined {
-    const existEntity = this.entities.find((item) => item.id === id);
-
-    if (!existEntity) {
-      throw new Error(`Entity with id ${id} does not found`);
-    }
-
-    return { ...existEntity };
+  public async save(entity: T): Promise<T> {
+    this.entities.set(entity.id, entity);
+    return entity;
   }
 
-  public save(entity: T): void {
-    if (entity.id) {
-      throw new Error(`Entity already has an id - ${entity.id}`);
+  public async update(id: T['id'], entity: T): Promise<T> {
+    if (!this.entities.has(id)) {
+      throw new Error(`Entity with id ${id} does not exist`);
     }
 
-    entity.id = randomUUID();
-    this.entities.push(entity);
+    this.entities.set(id, { ...entity, id });
+    return entity;
   }
 
-  public update(entity: T): void {
-    const existsEntityIndex = this.entities.findIndex(
-      (item) => item.id === entity.id
-    );
-    if (existsEntityIndex === -1) {
-      throw new Error(`Entity with ${entity.id} not found!`);
-    }
-
-    this.entities[existsEntityIndex] = { ...entity };
+  public async deleteById(id: T['id']): Promise<void> {
+    this.entities.delete(id);
   }
 }
