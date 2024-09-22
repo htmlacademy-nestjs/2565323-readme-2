@@ -1,8 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {
-  UserRegisterRequest,
-  UserRegisterResponse,
-} from '@project/shared-dtos';
+import { CreateUserDto, CreateUserRdo } from '@project/shared-dtos';
 import { HttpService } from '@nestjs/axios';
 import { ServicesUrl } from '@project/shared-core';
 
@@ -10,8 +7,8 @@ import { ServicesUrl } from '@project/shared-core';
 export class UsersService {
   constructor(private readonly httpService: HttpService) {}
 
-  async create(dto: UserRegisterRequest): Promise<UserRegisterResponse> {
-    const { data } = await this.httpService.axiosRef.post<UserRegisterResponse>(
+  async create(dto: CreateUserDto): Promise<CreateUserRdo> {
+    const { data } = await this.httpService.axiosRef.post<CreateUserRdo>(
       ServicesUrl.Accounts,
       dto
     );

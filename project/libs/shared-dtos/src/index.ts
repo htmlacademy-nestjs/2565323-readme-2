@@ -1,4 +1,3 @@
-export * from './accounts/user.change-password';
-export * from './accounts/user.get-info';
-export * from './accounts/user.login';
-export * from './accounts/user.register';
+export * from './accounts/change-password';
+export * from './accounts/create-user';
+export * from './accounts/login-user';

@@ -1,0 +1,20 @@
+services:
+  readme.accounts.mongo:
+    image: mongo:4.4
+    restart: always
+    container_name: readme.accounts.mongo
+    env_file:
+      - ./.env.dev
+    ports:
+      - 27017:27017
+    volumes:
+      - ../../db/readme.accounts.mongo:/data/db
+
+  readme.accounts.mongo-express:
+    image: mongo-express
+    restart: always
+    container_name: readme.accounts.mongo-express
+    env_file:
+      - ./.env.dev
+    ports:
+      - 8081:8081

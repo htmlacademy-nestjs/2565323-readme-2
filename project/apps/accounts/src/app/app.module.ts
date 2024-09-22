@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
+import {
+  ConfigAccountModule,
+  getMongooseOptions,
+} from '@project/shared-config/accounts';
 import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: 'env/apps/accounts/.env',
-    }),
+    ConfigAccountModule,
     UsersModule,
+    MongooseModule.forRootAsync(getMongooseOptions()),
   ],
   controllers: [],
   providers: [],
