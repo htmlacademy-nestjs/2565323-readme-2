@@ -1,27 +1,17 @@
 import { IsString, MaxLength, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Swagger } from './const.swagger';
+import { SWAGGER } from './const.swagger';
 
 export class ChangePasswordDto {
-  @ApiProperty({
-    description: Swagger.password.description,
-    example: Swagger.password.example,
-    maxLength: Swagger.password.maxLength,
-    minLength: Swagger.password.minLength,
-  })
+  @ApiProperty(SWAGGER.PASSWORD)
   @IsString()
-  @MaxLength(Swagger.password.maxLength)
-  @MinLength(Swagger.password.minLength)
+  @MaxLength(SWAGGER.PASSWORD.maxLength)
+  @MinLength(SWAGGER.PASSWORD.minLength)
   password: string;
 
-  @ApiProperty({
-    description: Swagger.newPassword.description,
-    example: Swagger.newPassword.example,
-    maxLength: Swagger.newPassword.maxLength,
-    minLength: Swagger.newPassword.minLength,
-  })
+  @ApiProperty(SWAGGER.NEW_PASSWORD)
   @IsString()
-  @MaxLength(Swagger.newPassword.maxLength)
-  @MinLength(Swagger.newPassword.minLength)
+  @MaxLength(SWAGGER.NEW_PASSWORD.maxLength)
+  @MinLength(SWAGGER.NEW_PASSWORD.minLength)
   newPassword: string;
 }
