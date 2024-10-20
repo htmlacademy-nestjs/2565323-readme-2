@@ -2,3 +2,8 @@
 GET http://localhost:3336/posts/posts
 
 ###
+
+#Delete post by id
+DELETE http://localhost:3336/posts/posts/55b3c9b0-6ac6-4d4c-bcca-c0326bcafbf6
+
+###
