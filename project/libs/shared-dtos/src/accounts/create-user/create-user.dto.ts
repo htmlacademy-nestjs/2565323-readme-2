@@ -6,42 +6,26 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { Swagger } from './const.swagger';
+import { SWAGGER } from './const.swagger';
 
 export class CreateUserDto {
-  @ApiProperty({
-    description: Swagger.email.description,
-    example: Swagger.email.example,
-  })
+  @ApiProperty(SWAGGER.EMAIL)
   @IsEmail()
   email: string;
 
-  @ApiProperty({
-    description: Swagger.fullName.description,
-    example: Swagger.fullName.example,
-    maxLength: Swagger.fullName.maxLength,
-    minLength: Swagger.fullName.minLength,
-  })
+  @ApiProperty(SWAGGER.FULL_NAME)
   @IsString()
-  @MaxLength(Swagger.fullName.maxLength)
-  @MinLength(Swagger.fullName.minLength)
+  @MaxLength(SWAGGER.FULL_NAME.maxLength)
+  @MinLength(SWAGGER.FULL_NAME.minLength)
   fullName: string;
 
-  @ApiProperty({
-    description: Swagger.password.description,
-    example: Swagger.password.example,
-    minLength: Swagger.password.minLength,
-    maxLength: Swagger.password.maxLength,
-  })
+  @ApiProperty(SWAGGER.PASSWORD)
   @IsString()
-  @MaxLength(Swagger.password.maxLength)
-  @MinLength(Swagger.password.minLength)
+  @MaxLength(SWAGGER.PASSWORD.maxLength)
+  @MinLength(SWAGGER.PASSWORD.minLength)
   password: string;
 
-  @ApiPropertyOptional({
-    description: Swagger.avatarSrc.description,
-    example: Swagger.avatarSrc.example,
-  })
+  @ApiPropertyOptional(SWAGGER.AVATAR_SRC)
   @IsString()
   @IsOptional()
   avatarSrc?: string;

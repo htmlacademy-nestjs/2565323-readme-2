@@ -3,7 +3,7 @@ import {
   LoginUserDto,
   LoginUserRdo,
   CreateUserDto,
-  CreateUserRdo,
+  UserRdo,
 } from '@project/shared-dtos';
 import { AuthService } from './auth.service';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -20,13 +20,13 @@ export class AuthController {
   @ApiResponse({
     status: 201,
     description: 'User successfully registered',
-    type: CreateUserRdo,
+    type: UserRdo,
   })
   @ApiResponse({
     status: 409,
     description: USER_ALREADY_EXISTS,
   })
-  async register(@Body() dto: CreateUserDto): Promise<CreateUserRdo> {
+  async register(@Body() dto: CreateUserDto): Promise<UserRdo> {
     return this.authService.register(dto);
   }
 

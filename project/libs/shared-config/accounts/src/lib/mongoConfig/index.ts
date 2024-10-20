@@ -1,2 +1,2 @@
-export { default as mongoConfig } from './mongo.config';
+export { mongoConfig } from './mongo.config';
 export { getMongooseOptions } from './get-mongoose-options';

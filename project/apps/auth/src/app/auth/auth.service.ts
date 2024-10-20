@@ -4,14 +4,14 @@ import {
   LoginUserDto,
   LoginUserRdo,
   CreateUserDto,
-  CreateUserRdo,
+  UserRdo,
 } from '@project/shared-dtos';
 
 @Injectable()
 export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
-  async register(dto: CreateUserDto): Promise<CreateUserRdo> {
+  async register(dto: CreateUserDto): Promise<UserRdo> {
     return this.usersService.create(dto);
   }
 

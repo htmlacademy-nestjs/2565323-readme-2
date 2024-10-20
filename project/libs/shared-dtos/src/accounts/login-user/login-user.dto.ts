@@ -1,23 +1,15 @@
 import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Swagger } from './const.swagger';
+import { SWAGGER } from './const.swagger';
 
 export class LoginUserDto {
-  @ApiProperty({
-    description: Swagger.email.description,
-    example: Swagger.email.example,
-  })
+  @ApiProperty(SWAGGER.EMAIL)
   @IsEmail()
   email: string;
 
-  @ApiProperty({
-    description: Swagger.password.description,
-    example: Swagger.password.example,
-    maxLength: Swagger.password.maxLength,
-    minLength: Swagger.password.minLength,
-  })
+  @ApiProperty(SWAGGER.PASSWORD)
   @IsString()
-  @MaxLength(Swagger.password.maxLength)
-  @MinLength(Swagger.password.minLength)
+  @MaxLength(SWAGGER.PASSWORD.maxLength)
+  @MinLength(SWAGGER.PASSWORD.minLength)
   password: string;
 }
