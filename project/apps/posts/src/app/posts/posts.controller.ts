@@ -1,16 +1,24 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { ApiTags } from '@nestjs/swagger';
-import { PostRdo, PostDto } from '@project/shared-dtos';
+import { PostRdo, PostDto, PaginationDto } from '@project/shared-dtos';
 
 @Controller('posts')
 @ApiTags('Posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @Get('')
-  async getPosts(): Promise<PostRdo[]> {
-    return this.postsService.getAll();
+  @Get()
+  async getPosts(@Query() paginationDto: PaginationDto): Promise<PostRdo[]> {
+    return this.postsService.getPosts(paginationDto);
   }
 
   @Post('')

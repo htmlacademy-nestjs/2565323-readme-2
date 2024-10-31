@@ -3,6 +3,7 @@ import {
   IsEmail,
   IsOptional,
   IsString,
+  IsUrl,
   MaxLength,
   MinLength,
 } from 'class-validator';
@@ -26,7 +27,7 @@ export class CreateUserDto {
   password: string;
 
   @ApiPropertyOptional(SWAGGER.AVATAR_SRC)
-  @IsString()
+  @IsUrl()
   @IsOptional()
   avatarSrc?: string;
 }
