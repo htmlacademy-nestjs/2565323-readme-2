@@ -1,4 +1,4 @@
-#Get all posts
+#Get posts
 GET http://localhost:3336/posts/posts
 
 ###

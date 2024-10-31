@@ -3,15 +3,20 @@ import {
   mapPostToPostRdo,
   PrismaClientService,
 } from '@project/shared-config/posts';
-import { PostRdo, PostDto } from '@project/shared-dtos';
+import { PostRdo, PostDto, PaginationDto } from '@project/shared-dtos';
 import { POST_NOT_FOUND } from './posts.const';
 
 @Injectable()
 export class PostsService {
   constructor(private readonly prismaClientService: PrismaClientService) {}
 
-  async getAll(): Promise<PostRdo[]> {
-    const posts = await this.prismaClientService.post.findMany();
+  async getPosts({ offset = 0, limit = 10 }: PaginationDto): Promise<PostRdo[]> {
+    const posts = await this.prismaClientService.post.findMany(
+      {
+        skip: offset,
+        take: limit
+      }
+    );
     return posts.map(mapPostToPostRdo);
   }
 
@@ -24,15 +29,15 @@ export class PostsService {
 
   async delete(postId: string, userId: string): Promise<PostRdo> {
     const post = await this.prismaClientService.post.findUnique({
-      where: { id: postId, userId }
+      where: { id: postId, userId },
     });
 
     if (!post) {
-      throw new NotFoundException(POST_NOT_FOUND)
+      throw new NotFoundException(POST_NOT_FOUND);
     }
 
     await this.prismaClientService.post.deleteMany({
-      where: { id: postId, userId }
+      where: { id: postId, userId },
     });
 
     return mapPostToPostRdo(post);

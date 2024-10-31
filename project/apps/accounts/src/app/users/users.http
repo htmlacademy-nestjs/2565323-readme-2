@@ -1,0 +1,10 @@
+#Get create new user
+POST http://0.0.0.0:3333/accounts/users
+Content-Type: application/json
+
+{
+  "email": "user@notfound.local",
+  "fullName": "Keks",
+  "password": "12345"
+}
+###

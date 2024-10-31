@@ -4,7 +4,7 @@ services:
     restart: always
     container_name: readme.accounts.mongo
     env_file:
-      - ./.env.dev
+      - .env.dev
     ports:
       - 27017:27017
     volumes:
@@ -15,6 +15,6 @@ services:
     restart: always
     container_name: readme.accounts.mongo-express
     env_file:
-      - ./.env.dev
+      - .env
     ports:
       - 8081:8081
