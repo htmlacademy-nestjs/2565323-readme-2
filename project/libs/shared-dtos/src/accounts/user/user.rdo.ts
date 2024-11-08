@@ -1,16 +1,30 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { SWAGGER } from './const.swagger';
+import { SWAGGER } from './swagger.const';
 
 export class UserRdo {
-  @ApiProperty(SWAGGER.ID)
+  @ApiProperty({
+    description: SWAGGER.ID.DESCRIPTION,
+    example: SWAGGER.ID.EXAMPLE,
+  })
   id: string;
 
-  @ApiProperty(SWAGGER.EMAIL)
+  @ApiProperty({
+    description: SWAGGER.EMAIL.DESCRIPTION,
+    example: SWAGGER.EMAIL.EXAMPLE,
+  })
   email: string;
 
-  @ApiProperty(SWAGGER.FULL_NAME)
+  @ApiProperty({
+    description: SWAGGER.FULL_NAME.DESCRIPTION,
+    example: SWAGGER.FULL_NAME.EXAMPLE,
+    minLength: SWAGGER.FULL_NAME.MIN_LENGTH,
+    maxLength: SWAGGER.FULL_NAME.MAX_LENGTH,
+  })
   fullName: string;
 
-  @ApiProperty(SWAGGER.AVATAR_SRC)
+  @ApiProperty({
+    description: SWAGGER.AVATAR_SRC.DESCRIPTION,
+    example: SWAGGER.AVATAR_SRC.EXAMPLE,
+  })
   avatarSrc?: string;
 }

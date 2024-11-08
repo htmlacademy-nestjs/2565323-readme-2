@@ -5,6 +5,16 @@ Content-Type: application/json
 {
   "email": "user@notfound.local",
   "fullName": "Keks",
-  "password": "12345"
+  "password": "123456"
+}
+###
+
+# Change user's password
+PATCH http://0.0.0.0:3333/accounts/users/6728dcb88404594068b2e846/password
+Content-Type: application/json
+
+{
+  "password": "654321",
+  "newPassword": "123456"
 }
 ###

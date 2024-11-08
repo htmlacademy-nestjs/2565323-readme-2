@@ -1,10 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { SWAGGER } from './const.swagger';
+import { SWAGGER } from './swagger.const';
 
 export class LoginUserRdo {
-  @ApiProperty(SWAGGER.ACCESS_TOKEN)
+  @ApiProperty({
+    description: SWAGGER.ACCESS_TOKEN.DESCRIPTION,
+    example: SWAGGER.ACCESS_TOKEN.EXAMPLE,
+  })
   accessToken: string;
 
-  @ApiProperty(SWAGGER.REFRESH_TOKEN)
+  @ApiProperty({
+    description: SWAGGER.REFRESH_TOKEN.DESCRIPTION,
+    example: SWAGGER.REFRESH_TOKEN.EXAMPLE,
+  })
   refreshToken: string;
 }

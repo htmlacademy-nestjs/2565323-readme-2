@@ -58,6 +58,7 @@ export class UsersService {
     }
 
     const updatedUserEntity = await userEntity.updatePassword(newPassword);
+    await this.usersMongoRepository.update(updatedUserEntity.id, updatedUserEntity);
     return updatedUserEntity.getInfo() as UserRdo;
   }
 }

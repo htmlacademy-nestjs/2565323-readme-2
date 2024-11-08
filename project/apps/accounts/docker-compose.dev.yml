@@ -15,6 +15,6 @@ services:
     restart: always
     container_name: readme.accounts.mongo-express
     env_file:
-      - .env
+      - .env.dev
     ports:
       - 8081:8081
