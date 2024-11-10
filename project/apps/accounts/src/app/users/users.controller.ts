@@ -1,6 +1,12 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-
-import { UsersService } from './users.service';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { ChangePasswordDto, CreateUserDto } from '@project/shared-dtos';
 import {
   ApiBody,
@@ -9,12 +15,19 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { JwtAuthGuard } from '@project/shared-config/auth';
+
 import { SWAGGER } from './users.swagger';
+import { UsersService } from './users.service';
+import { NotifyService } from '../notify/notify.service';
 
 @Controller('users')
 @ApiTags('Users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly notifyService: NotifyService
+  ) {}
 
   @ApiOperation(SWAGGER.CREATE.OPERATION)
   @ApiBody(SWAGGER.CREATE.BODY)
@@ -22,7 +35,12 @@ export class UsersController {
   @ApiResponse(SWAGGER.CREATE.RESPONSE_STATUS_409)
   @Post()
   async create(@Body() dto: CreateUserDto) {
-    return this.usersService.create(dto);
+    const user = await this.usersService.create(dto);
+
+    const { email, fullName } = user;
+    await this.notifyService.registerSubscriber( { email, fullName });
+
+    return user;
   }
 
   @ApiOperation(SWAGGER.GET_INFO.OPERATION)
@@ -34,14 +52,14 @@ export class UsersController {
     return this.usersService.getInfo(id);
   }
 
-  /** TODO добавить JwtAuthGuard - доступно только авторизованным пользователям */
   @ApiOperation(SWAGGER.CHANGE_PASSWORD.OPERATION)
   @ApiParam(SWAGGER.CHANGE_PASSWORD.PARAM)
   @ApiBody(SWAGGER.CHANGE_PASSWORD.BODY)
   @ApiResponse(SWAGGER.CHANGE_PASSWORD.RESPONSE_STATUS_200)
   @ApiResponse(SWAGGER.CHANGE_PASSWORD.RESPONSE_STATUS_401)
   @ApiResponse(SWAGGER.CHANGE_PASSWORD.RESPONSE_STATUS_404)
-  @Post(':id/password')
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id/password')
   async changePassword(
     @Param('id') id: string,
     @Body() dto: ChangePasswordDto

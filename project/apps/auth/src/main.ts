@@ -13,6 +13,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const configService = app.get(ConfigService);
+  console.log('configService', process.env);
   const port = configService.get<number>('AUTH_PORT');
   const globalPrefix = configService.get<string>('AUTH_PREFIX');
   app.setGlobalPrefix(globalPrefix);

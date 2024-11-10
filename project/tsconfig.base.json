@@ -18,6 +18,10 @@
       "@project/shared-config/accounts": [
         "libs/shared-config/accounts/src/index.ts"
       ],
+      "@project/shared-config/auth": ["libs/shared-config/auth/src/index.ts"],
+      "@project/shared-config/notify": [
+        "libs/shared-config/notify/src/index.ts"
+      ],
       "@project/shared-config/posts": ["libs/shared-config/posts/src/index.ts"],
       "@project/shared-core": ["libs/shared-core/src/index.ts"],
       "@project/shared-dtos": ["libs/shared-dtos/src/index.ts"],

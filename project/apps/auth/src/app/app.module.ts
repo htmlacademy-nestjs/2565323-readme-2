@@ -5,7 +5,7 @@ import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: 'env/apps/auth/.env',
+      envFilePath: ['apps/auth/.env', 'libs/shared-config/auth/.env'],
     }),
     AuthModule,
   ],

@@ -42,6 +42,7 @@ Thumbs.db
 .nx/workspace-data
 
 # environments
+*.env
 *.env.*
 !*.env.example
 

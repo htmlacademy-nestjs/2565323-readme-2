@@ -4,15 +4,21 @@ import {
   ConfigAccountModule,
   getMongooseOptions,
 } from '@project/shared-config/accounts';
+import {
+  ConfigAuthModule,
+  JwtAccessStrategy,
+} from '@project/shared-config/auth';
+
 import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
     ConfigAccountModule,
     UsersModule,
+    ConfigAuthModule,
     MongooseModule.forRootAsync(getMongooseOptions()),
   ],
   controllers: [],
-  providers: [],
+  providers: [JwtAccessStrategy],
 })
 export class AppModule {}

@@ -45,6 +45,7 @@ export class UserEntity implements Entity<string> {
   }
 
   public async validatePassword(password: string): Promise<boolean> {
+    console.log('this.passwordHash', this.passwordHash);
     return argon2.verify(this.passwordHash, password);
   }
 

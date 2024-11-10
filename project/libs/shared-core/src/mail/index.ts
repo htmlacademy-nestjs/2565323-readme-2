@@ -1,0 +1,1 @@
+export { getMailerAsyncOptions } from './mail';
