@@ -1,29 +1,30 @@
 import argon2 from 'argon2';
 import { Entity } from '@project/shared-core';
-import { CreateUserDto } from '@project/shared-dtos';
+import { CreateUserDTO } from '@project/shared-dtos';
 import { User } from '@project/shared-types';
 import { UserModel } from '../models/user.model';
-
-/** TODO заглушка для аватара */
-const DEFAULT_AVATAR_SRC = 'https://picsum.photos/300/300';
 
 export class UserEntity implements Entity<string> {
   readonly id: string;
   readonly email: string;
-  readonly fullName: string;
+  readonly firstName: string;
+  readonly lastName: string;
   private passwordHash: string;
   readonly avatarSrc: string;
+  readonly createdAt: Date;
 
   private constructor(user: User) {
     this.id = user.id;
     this.email = user.email;
-    this.fullName = user.fullName;
-    this.avatarSrc = user.avatarSrc ?? DEFAULT_AVATAR_SRC;
+    this.firstName = user.firstName;
+    this.lastName = user.lastName;
+    this.avatarSrc = user.avatarSrc;
+    this.createdAt = user.createdAt;
   }
 
-  public static async create(user: CreateUserDto): Promise<UserEntity> {
-    const { email, fullName, password, avatarSrc } = user;
-    return new UserEntity({ email, fullName, avatarSrc }).setPassword(password);
+  public static async create(user: CreateUserDTO): Promise<UserEntity> {
+    const { email, firstName, lastName, password, avatarSrc } = user;
+    return new UserEntity({ email, firstName, lastName, avatarSrc }).setPassword(password);
   }
 
   private async setPassword(password: string): Promise<UserEntity> {
@@ -32,9 +33,8 @@ export class UserEntity implements Entity<string> {
   }
 
   static fromObject(user: UserModel): UserEntity {
-    const { _id, email, fullName, passwordHash, avatarSrc } = user;
-    const id = _id as string;
-    const userEntity = new UserEntity({ id, email, fullName, avatarSrc });
+    const { id, email, firstName, lastName, passwordHash, avatarSrc, createdAt } = user;
+    const userEntity = new UserEntity({ id, email, firstName, lastName, avatarSrc, createdAt });
     userEntity.passwordHash = passwordHash;
     return userEntity;
   }
@@ -45,17 +45,16 @@ export class UserEntity implements Entity<string> {
   }
 
   public async validatePassword(password: string): Promise<boolean> {
-    console.log('this.passwordHash', this.passwordHash);
     return argon2.verify(this.passwordHash, password);
   }
 
   public getInfo(): User {
-    const { id, email, fullName, avatarSrc } = this;
-    return { id, email, fullName, avatarSrc };
+    const { id, email, firstName, lastName, avatarSrc, createdAt } = this;
+    return { id, email, firstName, lastName, avatarSrc, createdAt };
   }
 
   public toPOJO(): Record<string, unknown> {
-    const { id, email, fullName, passwordHash, avatarSrc } = this;
-    return { id, email, fullName, passwordHash, avatarSrc };
+    const { id, email, firstName, lastName, passwordHash, avatarSrc, createdAt } = this;
+    return { id, email, firstName, lastName, passwordHash, avatarSrc, createdAt };
   }
 }

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { getRabbitMQOptions } from '@project/shared-core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
+import { getRabbitMQOptions } from '@project/shared-config/rabbitmq-common';
 
 import {
   EmailSubscriberModel,
@@ -12,6 +12,7 @@ import { EmailSubscriberService } from './email-subscriber.service';
 import { EmailSubscriberMongoRepository } from './repositories/email-subscriber.mongo-repository';
 import { MailModule } from '../mail/mail.module';
 
+
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -19,7 +20,7 @@ import { MailModule } from '../mail/mail.module';
     ]),
     RabbitMQModule.forRootAsync(
       RabbitMQModule,
-      getRabbitMQOptions('notify.rabbit')
+      getRabbitMQOptions()
     ),
     MailModule,
   ],

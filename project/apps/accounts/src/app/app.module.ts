@@ -1,21 +1,25 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import {
-  ConfigAccountModule,
-  getMongooseOptions,
-} from '@project/shared-config/accounts';
-import {
-  ConfigAuthModule,
+  AuthCommonConfigModule,
   JwtAccessStrategy,
-} from '@project/shared-config/auth';
+} from '@project/shared-config/auth-common';
+import { AppConfigModule } from '@project/shared-config/app-common';
+import {
+  getMongooseOptions,
+  MongoConfigModule,
+} from '@project/shared-config/mongo-common';
+import { RabbitmqConfigModule } from '@project/shared-config/rabbitmq-common';
 
 import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
-    ConfigAccountModule,
+    AppConfigModule,
+    MongoConfigModule,
+    RabbitmqConfigModule,
     UsersModule,
-    ConfigAuthModule,
+    AuthCommonConfigModule,
     MongooseModule.forRootAsync(getMongooseOptions()),
   ],
   controllers: [],

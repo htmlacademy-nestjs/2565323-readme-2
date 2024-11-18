@@ -1,7 +1,7 @@
 import {
-  ChangePasswordDto,
-  CreateUserDto,
-  UserRdo,
+  ChangePasswordDTO,
+  CreateUserDTO, LoginUserDTO,
+  UserRDO
 } from '@project/shared-dtos';
 import {
   INVALID_PASSWORD,
@@ -13,12 +13,12 @@ export const SWAGGER = {
   CREATE: {
     OPERATION: { summary: 'Create user' },
     BODY: {
-      type: CreateUserDto,
+      type: CreateUserDTO,
     },
     RESPONSE_STATUS_201: {
       status: 201,
       description: 'User created successfully',
-      type: UserRdo,
+      type: UserRDO,
     },
     RESPONSE_STATUS_409: {
       status: 409,
@@ -35,7 +35,7 @@ export const SWAGGER = {
     RESPONSE_STATUS_200: {
       status: 200,
       description: `User's info`,
-      type: UserRdo,
+      type: UserRDO,
     },
     RESPONSE_STATUS_404: {
       status: 404,
@@ -44,18 +44,13 @@ export const SWAGGER = {
   },
   CHANGE_PASSWORD: {
     OPERATION: { summary: `Change user's password` },
-    PARAM: {
-      name: 'id',
-      description: `User's id`,
-      example: 'abcd1234',
-    },
     BODY: {
-      type: ChangePasswordDto,
+      type: ChangePasswordDTO,
     },
     RESPONSE_STATUS_200: {
       status: 200,
       description: 'User changed password',
-      type: UserRdo,
+      type: UserRDO,
     },
     RESPONSE_STATUS_401: {
       status: 401,
@@ -66,4 +61,15 @@ export const SWAGGER = {
       description: USER_NOT_FOUND,
     },
   },
+  VERIFY: {
+    OPERATION: { summary: `Verify user` },
+    BODY: {
+      type: LoginUserDTO,
+    },
+    RESPONSE_STATUS_200: {
+      status: 200,
+      description: 'User is verified',
+      type: UserRDO,
+    },
+  }
 };

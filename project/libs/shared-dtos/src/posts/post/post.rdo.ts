@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { SWAGGER } from './swagger.const';
 
-export class PostRdo {
+export class PostRDO {
   @ApiProperty({
-    description: SWAGGER.ID.description,
-    example: SWAGGER.ID.example,
+    description: SWAGGER.ID.DESCRIPTION,
+    example: SWAGGER.ID.EXAMPLE,
   })
   id: string;
 
@@ -25,14 +25,14 @@ export class PostRdo {
   content: string;
 
   @ApiProperty({
-    description: SWAGGER.CREATED_AT.description,
-    example: SWAGGER.CREATED_AT.example,
+    description: SWAGGER.CREATED_AT.DESCRIPTION,
+    example: SWAGGER.CREATED_AT.EXAMPLE,
   })
   createdAt: Date;
 
   @ApiProperty({
-    description: SWAGGER.USER_ID.description,
-    example: SWAGGER.USER_ID.example,
+    description: SWAGGER.USER_ID.DESCRIPTION,
+    example: SWAGGER.USER_ID.EXAMPLE,
   })
   userId: string;
 }

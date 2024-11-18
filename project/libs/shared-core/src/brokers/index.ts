@@ -1,1 +1,0 @@
-export { getRabbitMQOptions } from './brokers';

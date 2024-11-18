@@ -7,9 +7,15 @@ export const SWAGGER = {
     DESCRIPTION: `User's email`,
     EXAMPLE: 'john.doe@google.com',
   },
-  FULL_NAME: {
-    DESCRIPTION: `User's full name`,
-    EXAMPLE: 'John Doe',
+  FIRST_NAME: {
+    DESCRIPTION: `User's first name`,
+    EXAMPLE: 'John',
+    MIN_LENGTH: 3,
+    MAX_LENGTH: 50,
+  },
+  LAST_NAME: {
+    DESCRIPTION: `User's last name`,
+    EXAMPLE: 'Doe',
     MIN_LENGTH: 3,
     MAX_LENGTH: 50,
   },

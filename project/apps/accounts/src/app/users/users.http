@@ -4,7 +4,8 @@ Content-Type: application/json
 
 {
   "email": "user@notfound.local",
-  "fullName": "Keks",
+  "firstName": "John",
+  "lastName": "Doe",
   "password": "123456"
 }
 ###

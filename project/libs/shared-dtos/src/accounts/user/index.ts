@@ -1,1 +1,1 @@
-export { UserRdo } from './user.rdo';
+export { UserRDO } from './user.rdo';

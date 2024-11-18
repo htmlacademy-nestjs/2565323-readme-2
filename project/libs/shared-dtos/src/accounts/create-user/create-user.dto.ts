@@ -9,7 +9,7 @@ import {
 } from 'class-validator';
 import { SWAGGER } from './swagger.const';
 
-export class CreateUserDto {
+export class CreateUserDTO {
   @ApiProperty({
     description: SWAGGER.EMAIL.DESCRIPTION,
     example: SWAGGER.EMAIL.EXAMPLE,
@@ -18,15 +18,26 @@ export class CreateUserDto {
   email: string;
 
   @ApiProperty({
-    description: SWAGGER.FULL_NAME.DESCRIPTION,
-    example: SWAGGER.FULL_NAME.EXAMPLE,
-    minLength: SWAGGER.FULL_NAME.MIN_LENGTH,
-    maxLength: SWAGGER.FULL_NAME.MAX_LENGTH,
+    description: SWAGGER.FIRST_NAME.DESCRIPTION,
+    example: SWAGGER.FIRST_NAME.EXAMPLE,
+    minLength: SWAGGER.FIRST_NAME.MIN_LENGTH,
+    maxLength: SWAGGER.FIRST_NAME.MAX_LENGTH,
   })
   @IsString()
-  @MinLength(SWAGGER.FULL_NAME.MIN_LENGTH)
-  @MaxLength(SWAGGER.FULL_NAME.MAX_LENGTH)
-  fullName: string;
+  @MinLength(SWAGGER.FIRST_NAME.MIN_LENGTH)
+  @MaxLength(SWAGGER.FIRST_NAME.MAX_LENGTH)
+  firstName: string;
+
+  @ApiProperty({
+    description: SWAGGER.LAST_NAME.DESCRIPTION,
+    example: SWAGGER.LAST_NAME.EXAMPLE,
+    minLength: SWAGGER.LAST_NAME.MIN_LENGTH,
+    maxLength: SWAGGER.LAST_NAME.MAX_LENGTH,
+  })
+  @IsString()
+  @MinLength(SWAGGER.LAST_NAME.MIN_LENGTH)
+  @MaxLength(SWAGGER.LAST_NAME.MAX_LENGTH)
+  lastName: string;
 
   @ApiProperty({
     description: SWAGGER.PASSWORD.DESCRIPTION,

@@ -1,14 +1,22 @@
 import { Module } from '@nestjs/common';
-import { ConfigNotifyModule } from '@project/shared-config/notify';
-import { getMongooseOptions } from '@project/shared-core';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AppConfigModule } from '@project/shared-config/app-common';
+import { MailerConfigModule } from '@project/shared-config/mailer-common';
+import {
+  getMongooseOptions,
+  MongoConfigModule,
+} from '@project/shared-config/mongo-common';
+import { RabbitmqConfigModule } from '@project/shared-config/rabbitmq-common';
 
 import { EmailSubscriberModule } from './email-subscriber/email-subscriber.module';
 
 @Module({
   imports: [
-    MongooseModule.forRootAsync(getMongooseOptions('notify.db')),
-    ConfigNotifyModule,
+    AppConfigModule,
+    RabbitmqConfigModule,
+    MailerConfigModule,
+    MongoConfigModule,
+    MongooseModule.forRootAsync(getMongooseOptions()),
     EmailSubscriberModule,
   ],
 })

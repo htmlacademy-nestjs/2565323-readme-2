@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSubscriberDto } from '@project/shared-dtos';
+import { CreateSubscriberDTO } from '@project/shared-dtos';
 
 import { EmailSubscriberMongoRepository } from './repositories/email-subscriber.mongo-repository';
 import { EmailSubscriberEntity } from './entities/email-subscriber.entity';
@@ -10,7 +10,7 @@ export class EmailSubscriberService {
     private readonly emailSubscriberRepository: EmailSubscriberMongoRepository
   ) {}
 
-  public async addSubscriber(subscriber: CreateSubscriberDto) {
+  public async addSubscriber(subscriber: CreateSubscriberDTO) {
     const { email } = subscriber;
     const existsSubscriber = await this.emailSubscriberRepository.findByEmail(
       email
