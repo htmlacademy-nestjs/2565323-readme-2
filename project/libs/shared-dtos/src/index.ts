@@ -3,5 +3,8 @@ export * from './accounts/create-user';
 export * from './accounts/login-user';
 export * from './accounts/user';
 export * from './common/pagination';
+export * from './common/req-with-user';
+export * from './gateway/user-info';
 export * from './notify/create-subscriber';
 export * from './posts/post';
+export * from './posts/post-filter';

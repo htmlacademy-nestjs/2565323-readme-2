@@ -15,14 +15,25 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@project/shared-config/accounts": [
-        "libs/shared-config/accounts/src/index.ts"
+      "@project/shared-config/app-common": [
+        "libs/shared-config/app-common/src/index.ts"
       ],
-      "@project/shared-config/auth": ["libs/shared-config/auth/src/index.ts"],
-      "@project/shared-config/notify": [
-        "libs/shared-config/notify/src/index.ts"
+      "@project/shared-config/auth-common": [
+        "libs/shared-config/auth-common/src/index.ts"
+      ],
+      "@project/shared-config/auth-gateway": [
+        "libs/shared-config/auth-gateway/src/index.ts"
+      ],
+      "@project/shared-config/mailer-common": [
+        "libs/shared-config/mailer-common/src/index.ts"
+      ],
+      "@project/shared-config/mongo-common": [
+        "libs/shared-config/mongo-common/src/index.ts"
       ],
       "@project/shared-config/posts": ["libs/shared-config/posts/src/index.ts"],
+      "@project/shared-config/rabbitmq-common": [
+        "libs/shared-config/rabbitmq-common/src/index.ts"
+      ],
       "@project/shared-core": ["libs/shared-core/src/index.ts"],
       "@project/shared-dtos": ["libs/shared-dtos/src/index.ts"],
       "@project/shared-types": ["libs/shared-types/src/index.ts"],

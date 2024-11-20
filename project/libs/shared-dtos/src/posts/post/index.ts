@@ -1,2 +1,2 @@
-export { PostRdo } from './post.rdo';
-export { PostDto } from './post.dto';
+export { PostRDO } from './post.rdo';
+export { PostDTO } from './post.dto';

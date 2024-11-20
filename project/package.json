@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "gateway:serve": "env-cmd -f apps/gateway/.env.dev nx run gateway:serve",
     "accounts:serve": "env-cmd -f apps/accounts/.env.dev nx run accounts:serve",
-    "auth:serve": "nx run auth:serve",
     "posts:serve": "env-cmd -f apps/posts/.env.dev nx run posts:serve",
     "notify:serve": "env-cmd -f apps/notify/.env.dev nx run notify:serve",
     "accounts:docker:up": "docker-compose -f apps/accounts/docker-compose.dev.yml up -d",

@@ -1,7 +1,7 @@
 import { Post } from '@prisma/client';
-import { PostRdo } from '@project/shared-dtos';
+import { PostRDO } from '@project/shared-dtos';
 
-export const mapPostToPostRdo = (post: Post): PostRdo => ({
+export const mapPostToPostRdo = (post: Post): PostRDO => ({
   id: post.id,
   title: post.title,
   content: post.content,

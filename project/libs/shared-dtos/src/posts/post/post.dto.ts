@@ -2,7 +2,7 @@ import { IsString, MaxLength, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { SWAGGER } from './swagger.const';
 
-export class PostDto {
+export class PostDTO {
   @ApiProperty({
     description: SWAGGER.TITLE.DESCRIPTION,
     example: SWAGGER.TITLE.EXAMPLE,

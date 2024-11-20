@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { SWAGGER } from './swagger.const';
 
-export class LoginUserRdo {
+export class LoginUserRDO {
   @ApiProperty({
     description: SWAGGER.ACCESS_TOKEN.DESCRIPTION,
     example: SWAGGER.ACCESS_TOKEN.EXAMPLE,

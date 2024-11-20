@@ -6,21 +6,24 @@ export class EmailSubscriberEntity
 {
   public id: string;
   public email: string;
-  public fullName: string;
+  public firstName: string;
+  public lastName: string;
   public userId: string;
 
   public toPOJO() {
     return {
       id: this.id,
       email: this.email,
-      fullName: this.fullName,
+      firstName: this.firstName,
+      lastName: this.lastName,
     };
   }
 
-  public populate(data: Subscriber): EmailSubscriberEntity {
-    this.id = data.id ?? undefined;
-    this.email = data.email;
-    this.fullName = data.fullName;
+  public populate({ id, email, firstName, lastName }: Subscriber): EmailSubscriberEntity {
+    this.id = id;
+    this.email = email;
+    this.firstName = firstName;
+    this.lastName = lastName;
 
     return this;
   }

@@ -1,2 +1,2 @@
-export { LoginUserDto } from './login-user.dto';
-export { LoginUserRdo } from './login-user.rdo';
+export { LoginUserDTO } from './login-user.dto';
+export { LoginUserRDO } from './login-user.rdo';

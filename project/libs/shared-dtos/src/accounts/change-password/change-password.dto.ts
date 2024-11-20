@@ -2,7 +2,7 @@ import { IsString, MaxLength, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { SWAGGER } from './swagger.const';
 
-export class ChangePasswordDto {
+export class ChangePasswordDTO {
   @ApiProperty({
     description: SWAGGER.PASSWORD.DESCRIPTION,
     example: SWAGGER.PASSWORD.EXAMPLE,

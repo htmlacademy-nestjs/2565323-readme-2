@@ -2,7 +2,7 @@ import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { SWAGGER } from './swagger.const';
 
-export class LoginUserDto {
+export class LoginUserDTO {
   @ApiProperty({
     description: SWAGGER.EMAIL.DESCRIPTION,
     example: SWAGGER.EMAIL.EXAMPLE,
